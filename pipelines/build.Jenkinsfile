@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    
     triggers {
         githubPush()
     }
@@ -9,13 +9,17 @@ pipeline {
         stage('Build app container') {
             steps {
                 sh '''
-                    # your pipeline commands here....
-                    
-                    # for example list the files in the pipeline workdir
+                    # Navigate to the working directory
+                    cd ~/NetflixFrontend
+
+                    # List the files in the pipeline workdir
                     ls 
-                    
-                    # build an image
+
+                    # Build the Docker image
                     docker build -t netflix-front .
+
+                    # run the container to verify it's working
+                    # docker run -d -p 80:80 netflix-front
                 '''
             }
         }
